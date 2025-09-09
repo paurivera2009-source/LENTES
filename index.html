@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lentes AR — Historia</title>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    body{font-family:system-ui,Arial;margin:0;padding:12px;background:#fafafa;color:#111}
+    header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    h1{font-size:1.2rem;margin:0}
+    model-viewer{width:100%;height:62vh;background:#e9eef3;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
+    .controls{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+    button{padding:6px 10px;border-radius:8px;border:1px solid #ddd;background:white;cursor:pointer}
+    #info{margin-top:12px;padding:10px;border-radius:8px;background:white;box-shadow:0 4px 12px rgba(0,0,0,0.04)}
+    .hide{display:none}
+    img.small{max-width:120px;border-radius:6px;margin-left:8px;margin-top:6px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lentes — Historia que cambió el mundo</h1>
+  </header>
+
+  <!-- Lentes 3D -->
+  <model-viewer id="mv"
+    src="lentes.glb"
+    alt="Lentes 3D"
+    autoplay
+    camera-controls
+    auto-rotate
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    ios-src=""
+    style="margin-top:10px;">
+  </model-viewer>
+
+  <!-- Botones de secciones -->
+  <div class="controls">
+    <button onclick="show('monjes')">Monjes</button>
+    <button onclick="show('piedras')">Primeras piedras</button>
+    <button onclick="show('venecia')">Primeros anteojos</button>
+    <button onclick="show('galileo')">Galileo</button>
+    <button onclick="show('microscopios')">Microscopios</button>
+    <button onclick="show('gutenberg')">Gutenberg</button>
+    <button onclick="show('estudiantes')">Estudiantes</button>
+    <button onclick="show('trabajos')">Trabajos</button>
+    <button onclick="show('evolucion')">Evolución</button>
+    <button onclick="show('linea')">Línea de tiempo</button>
+    <button onclick="document.getElementById('narr').play()">▶ Reproducir narración</button>
+  </div>
+
+  <!-- Información y imágenes -->
+  <div id="info">
+    <div id="monjes">Imagen: <img src="monjes.png" class="small" alt="Monjes"></div>
+    <div id="piedras" class="hide">Imagen: <img src="piedras.png" class="small" alt="Primeras piedras de lectura"></div>
+    <div id="venecia" class="hide">Imagen: <img src="venecia.png" class="small" alt="Primeros anteojos en Venecia"></div>
+    <div id="galileo" class="hide">Imagen: <img src="galileo.png" class="small" alt="Galileo con telescopio"></div>
+    <div id="microscopios" class="hide">Imagen: <img src="microscopios.png" class="small" alt="Científicos con microscopios"></div>
+    <div id="gutenberg" class="hide">Imagen: <img src="gutenberg.png" class="small" alt="Gutenberg y la lectura"></div>
+    <div id="estudiantes" class="hide">Imagen: <img src="estudiantes.png" class="small" alt="Estudiantes leyendo"></div>
+    <div id="trabajos" class="hide">Imagen: <img src="trabajos.png" class="small" alt="Trabajos relacionados con lentes"></div>
+    <div id="evolucion" class="hide">Imagen: <img src="evolucion.png" class="small" alt="Evolución de los lentes"></div>
+    <div id="linea" class="hide">Imagen: <img src="linea-tiempo.png" class="small" alt="Línea de tiempo de los lentes"></div>
+  </div>
+
+  <!-- Audio de narración -->
+  <audio id="narr" src="Audio-de-WhatsApp-2025-09-08-a-las-22.35.53_8e968a14.mp3"></audio>
+
+  <script>
+    function show(id){
+      const sections = ['monjes','piedras','venecia','galileo','microscopios','gutenberg','estudiantes','trabajos','evolucion','linea'];
+      sections.forEach(i => document.getElementById(i).classList.add('hide'));
+      document.getElementById(id).classList.remove('hide');
+    }
+
+    const mv = document.getElementById('mv');
+    mv.addEventListener('enter-fxr', ()=> {
+      document.getElementById('narr').play().catch(()=>{});
+    });
+  </script>
+</body>
+</html>
