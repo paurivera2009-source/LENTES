@@ -1,85 +1,107 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lentes AR — Historia</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Historia de los Lentes</title>
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
   <style>
-    body{font-family:system-ui,Arial;margin:0;padding:12px;background:#fafafa;color:#111}
-    header{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    h1{font-size:1.2rem;margin:0}
-    model-viewer{width:100%;height:62vh;background:#e9eef3;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.08)}
-    .controls{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
-    button{padding:6px 10px;border-radius:8px;border:1px solid #ddd;background:white;cursor:pointer}
-    #info{margin-top:12px;padding:10px;border-radius:8px;background:white;box-shadow:0 4px 12px rgba(0,0,0,0.04)}
-    .hide{display:none}
-    img.small{max-width:120px;border-radius:6px;margin-left:8px;margin-top:6px}
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #111;
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      padding: 1rem;
+      background: #222;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+    .card {
+      background: #333;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    model-viewer {
+      width: 100%;
+      height: 400px;
+      margin: 1rem 0;
+    }
+    audio {
+      margin-top: 1rem;
+    }
+    #captions {
+      font-size: 18px;
+      text-align: center;
+      margin-top: 10px;
+      color: #fff;
+      background: #000;
+      padding: 5px;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Lentes — Historia que cambió el mundo</h1>
+    <h1>👓 Historia de los Lentes</h1>
+    <p>Explora cómo los lentes cambiaron el mundo</p>
   </header>
 
-  <!-- Lentes 3D -->
-  <model-viewer id="mv"
-    src="lentes.glb"
-    alt="Lentes 3D"
-    autoplay
-    camera-controls
-    auto-rotate
-    ar
-    ar-modes="webxr scene-viewer quick-look"
-    ios-src=""
-    style="margin-top:10px;">
+  <!-- Modelo 3D -->
+  <model-viewer src="models/lentes.glb" ar ar-modes="scene-viewer quick-look webxr" camera-controls auto-rotate poster="img/monjes.png">
+    <button slot="ar-button" style="background:#ffcc00;padding:10px;border:none;border-radius:8px;">🔍 Ver en AR</button>
   </model-viewer>
 
-  <!-- Botones de secciones -->
-  <div class="controls">
-    <button onclick="show('monjes')">Monjes</button>
-    <button onclick="show('piedras')">Primeras piedras</button>
-    <button onclick="show('venecia')">Primeros anteojos</button>
-    <button onclick="show('galileo')">Galileo</button>
-    <button onclick="show('microscopios')">Microscopios</button>
-    <button onclick="show('gutenberg')">Gutenberg</button>
-    <button onclick="show('estudiantes')">Estudiantes</button>
-    <button onclick="show('trabajos')">Trabajos</button>
-    <button onclick="show('evolucion')">Evolución</button>
-    <button onclick="show('linea')">Línea de tiempo</button>
-    <button onclick="document.getElementById('narr').play()">▶ Reproducir narración</button>
-  </div>
+  <!-- Narración con subtítulos -->
+  <audio id="narr" controls>
+    <source src="audio/audio-whatsapp-2025-09-08-a-las-22.35.53-8e968a14.mp3" type="audio/mpeg">
+    <track src="audio/captions.vtt" kind="subtitles" srclang="es" label="Español" default>
+  </audio>
+  <div id="captions"></div>
 
-  <!-- Información y imágenes -->
-  <div id="info">
-    <div id="monjes">Imagen: <img src="monjes.png" class="small" alt="Monjes"></div>
-    <div id="piedras" class="hide">Imagen: <img src="piedras.png" class="small" alt="Primeras piedras de lectura"></div>
-    <div id="venecia" class="hide">Imagen: <img src="venecia.png" class="small" alt="Primeros anteojos en Venecia"></div>
-    <div id="galileo" class="hide">Imagen: <img src="galileo.png" class="small" alt="Galileo con telescopio"></div>
-    <div id="microscopios" class="hide">Imagen: <img src="microscopios.png" class="small" alt="Científicos con microscopios"></div>
-    <div id="gutenberg" class="hide">Imagen: <img src="gutenberg.png" class="small" alt="Gutenberg y la lectura"></div>
-    <div id="estudiantes" class="hide">Imagen: <img src="estudiantes.png" class="small" alt="Estudiantes leyendo"></div>
-    <div id="trabajos" class="hide">Imagen: <img src="trabajos.png" class="small" alt="Trabajos relacionados con lentes"></div>
-    <div id="evolucion" class="hide">Imagen: <img src="evolucion.png" class="small" alt="Evolución de los lentes"></div>
-    <div id="linea" class="hide">Imagen: <img src="linea-tiempo.png" class="small" alt="Línea de tiempo de los lentes"></div>
-  </div>
-
-  <!-- Audio de narración -->
-  <audio id="narr" src="Audio-de-WhatsApp-2025-09-08-a-las-22.35.53_8e968a14.mp3"></audio>
+  <!-- Línea de tiempo -->
+  <section class="timeline">
+    <div class="card"><img src="img/monjes.png" alt="Monjes"><p>Monjes copiando manuscritos</p></div>
+    <div class="card"><img src="img/piedras.png" alt="Piedras de lectura"><p>Piedras de lectura</p></div>
+    <div class="card"><img src="img/microscopios.png" alt="Microscopios"><p>Primeros microscopios</p></div>
+    <div class="card"><img src="img/trabajos.png" alt="Trabajos"><p>Trabajos con lentes</p></div>
+    <div class="card"><img src="img/Venecia.png" alt="Venecia"><p>Venecia, 1286</p></div>
+    <div class="card"><img src="img/linea-tiempo.png" alt="Línea del tiempo"><p>Línea del tiempo</p></div>
+    <div class="card"><img src="img/Estudiantes.png" alt="Estudiantes"><p>Estudiantes usando lentes</p></div>
+    <div class="card"><img src="img/evolucion.png" alt="Evolución"><p>Evolución de los lentes</p></div>
+    <div class="card"><img src="img/Galileo.png" alt="Galileo"><p>Galileo y sus telescopios</p></div>
+    <div class="card"><img src="img/Gutenberg.png" alt="Gutenberg"><p>Imprenta de Gutenberg</p></div>
+  </section>
 
   <script>
-    function show(id){
-      const sections = ['monjes','piedras','venecia','galileo','microscopios','gutenberg','estudiantes','trabajos','evolucion','linea'];
-      sections.forEach(i => document.getElementById(i).classList.add('hide'));
-      document.getElementById(id).classList.remove('hide');
-    }
+    const audio = document.getElementById("narr");
+    const track = audio.textTracks[0];
+    const captionBox = document.getElementById("captions");
 
-    const mv = document.getElementById('mv');
-    mv.addEventListener('enter-fxr', ()=> {
-      document.getElementById('narr').play().catch(()=>{});
-    });
+    if (track) {
+      track.mode = "hidden";
+      track.oncuechange = () => {
+        if (track.activeCues.length > 0) {
+          captionBox.innerText = track.activeCues[0].text;
+        } else {
+          captionBox.innerText = "";
+        }
+      };
+    }
   </script>
 </body>
 </html>
